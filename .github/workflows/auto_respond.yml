@@ -2,7 +2,7 @@ name: Issue Ops Auto Response
 
 on:
   issues:
-    types: [labeled]
+    types: [opened]
 
 jobs:
   auto-respond:
