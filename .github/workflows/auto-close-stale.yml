@@ -1,0 +1,74 @@
+name: Auto Close Stale Issues
+
+on:
+  schedule:
+    - cron: '0 22 * * *' # Every day at 5pm EST (22:00 UTC)
+
+jobs:
+  close-stale-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find stale issues
+        uses: actions/github-script@v7
+        id: find_stale
+        with:
+          script: |
+            const daysStale = 7;
+            const since = new Date(Date.now() - daysStale * 24 * 60 * 60 * 1000).toISOString();
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100
+            });
+            let staleIssues = [];
+            for (const issue of issues) {
+              if (issue.pull_request) continue; // skip PRs
+              // Get comments
+              const { data: comments } = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                per_page: 100
+              });
+              // Find last comment
+              let lastComment = comments.length ? comments[comments.length - 1] : null;
+              let lastResponder = lastComment ? lastComment.user.login : null;
+              let lastUpdated = lastComment ? lastComment.created_at : issue.updated_at;
+              // If last responder is the assignee and last update > 7 days ago
+              if (
+                issue.assignee &&
+                lastResponder === issue.assignee.login &&
+                new Date(lastUpdated) < new Date(since)
+              ) {
+                staleIssues.push(issue.number);
+              }
+            }
+            core.setOutput('stale', staleIssues.join(','));
+
+      - name: Comment and label stale issues
+        if: steps.find_stale.outputs.stale != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const stale = '${{ steps.find_stale.outputs.stale }}'.split(',').filter(Boolean);
+            for (const number of stale) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: number,
+                body: `This issue has been automatically marked as stale and will be closed. If you still need assistance, please comment here or open a new issue to re-engage the team. Thank you!`
+              });
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: number,
+                labels: ['inactive']
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: number,
+                state: 'closed'
+              });
+            }

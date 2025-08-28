@@ -1,0 +1,57 @@
+name: Issue Ops Auto Response
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  auto-respond:
+    if: github.event.label.name == 'new_issue'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read autoresponse template
+        id: read_template
+        run: |
+          TEMPLATE_PATH=".github/issue_templates/autoresponse_template.md"
+          RESPONSE=$(cat "$TEMPLATE_PATH")
+          RESPONSE_ESCAPED=$(echo "$RESPONSE" | sed ':a;N;$!ba;s/\n/\\n/g')
+          echo "response=$RESPONSE_ESCAPED" >> $GITHUB_OUTPUT
+
+      - name: Post auto-response comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const response = process.env['RESPONSE'] || "${{ steps.read_template.outputs.response }}";
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: response
+            });
+        env:
+          RESPONSE: ${{ steps.read_template.outputs.response }}
+
+      - name: Remove 'new_issue' label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'new_issue'
+            });
+
+      - name: Add 'assign' label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['assign']
+            });
