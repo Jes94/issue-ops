@@ -23,7 +23,7 @@ This repository contains a suite of GitHub Actions workflows designed to automat
 - **How it works:**
   1. Listens for the `new_issue` label on issues.
   2. Posts a comment using the HTML template.
-  3. Removes `new_issue` label and adds `assign` label.
+  3. Removes `new_issue` label.
 
 ---
 
