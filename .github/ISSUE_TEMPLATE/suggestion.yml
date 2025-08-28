@@ -1,19 +1,33 @@
----
 name: "Suggestion"
-about: "Propose a new idea or improvement for this project."
+description: "Propose a new idea or improvement for this project."
 title: "[Suggestion]: "
 labels: ["new_issue"]
-assignees: []
----
-
-## Suggestion Summary
-
-_Describe your suggestion or idea in a clear and concise way._
-
-## Motivation
-
-_Explain why this suggestion would be beneficial to the project or its users._
-
-## Additional Context
-
-_Add any other context, screenshots, or examples about the suggestion here._
+body:
+	- type: markdown
+		attributes:
+			value: |
+				Thank you for taking the time to suggest an improvement!
+	- type: input
+		id: summary
+		attributes:
+			label: Suggestion Summary
+			description: Briefly describe your suggestion or idea.
+			placeholder: e.g. Add support for dark mode
+		validations:
+			required: true
+	- type: textarea
+		id: motivation
+		attributes:
+			label: Motivation
+			description: Why would this suggestion be beneficial to the project or its users?
+			placeholder: e.g. It would improve accessibility for users who prefer dark themes.
+		validations:
+			required: true
+	- type: textarea
+		id: context
+		attributes:
+			label: Additional Context
+			description: Add any other context, screenshots, or examples about the suggestion here.
+			placeholder: e.g. Related issues, screenshots, or links
+		validations:
+			required: false
