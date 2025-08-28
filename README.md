@@ -40,15 +40,6 @@ This repository contains a suite of GitHub Actions workflows designed to automat
 
 ---
 
-## Auto Label Stale Issues
-**Workflow:** `.github/workflows/auto-assign.yml` (name may differ in workflow file)
-
-- **Purpose:** (If enabled) Automatically labels issues as stale based on custom logic.
-- **Configuration:**
-  - Edit the workflow file to adjust criteria as needed.
-
----
-
 ## Auto Close Stale Issues
 **Workflow:** `.github/workflows/auto-close-stale.yml`
 
