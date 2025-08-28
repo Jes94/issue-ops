@@ -1,12 +1,12 @@
-name: Suggestion
-description: Make a suggestion
-title: "[Suggestion]: "
+name: Demo
+description: Demonstrate the autoresponse and assignment
+title: "[DEMO]: "
 labels: ["new_issue","assign"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this suggestion!
+        Thanks for taking the time to check out this repository!
   - type: input
     id: contact
     attributes:
@@ -23,4 +23,4 @@ body:
       placeholder: "Tell us what you'd like to see!"
       value: "A suggestion"
     validations:
-      required: true
+      required: false
