@@ -1,4 +1,4 @@
-name: Auto Comment Assignee Reminder
+name: 48hr Assignee Reminder
 
 on:
   schedule:
