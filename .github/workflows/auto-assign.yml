@@ -15,7 +15,7 @@ jobs:
       - name: Read assignees list
         id: assignees
         run: |
-          USERS=$(yq e '.users | @csv' .github/issue_templates/assignees.yml | tr -d '"')
+          USERS=$(yq e '.users | @csv' .github/workflows/configurations/assignees.yml | tr -d '"')
           echo "users=$USERS" >> $GITHUB_OUTPUT
 
       - name: Assign issue to next user
