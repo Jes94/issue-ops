@@ -17,7 +17,7 @@ jobs:
       - name: Read autoresponse template
         id: read_template
         run: |
-          TEMPLATE_PATH=".github/workflows/configurations/autoresponse_template.md"
+          TEMPLATE_PATH=".github/workflows/configurations/autoresponse_template.html"
           RESPONSE=$(cat "$TEMPLATE_PATH")
           echo "response<<EOF" >> $GITHUB_OUTPUT
           echo "$RESPONSE" >> $GITHUB_OUTPUT
