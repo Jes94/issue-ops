@@ -19,8 +19,9 @@ jobs:
         run: |
           TEMPLATE_PATH=".github/workflows/configurations/autoresponse_template.md"
           RESPONSE=$(cat "$TEMPLATE_PATH")
-          RESPONSE_ESCAPED=$(echo "$RESPONSE" | sed ':a;N;$!ba;s/\n/\\n/g')
-          echo "response=$RESPONSE_ESCAPED" >> $GITHUB_OUTPUT
+          echo "response<<EOF" >> $GITHUB_OUTPUT
+          echo "$RESPONSE" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Post auto-response comment
         uses: actions/github-script@v7

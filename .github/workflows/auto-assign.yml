@@ -9,7 +9,6 @@ on:
 
 jobs:
   auto-assign:
-    if: github.event.label.name == 'assign'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -18,10 +17,11 @@ jobs:
       - name: Read assignees list
         id: assignees
         run: |
-          USERS=$(yq e '.users | @csv' .github/workflows/configurations/assignees.yml | tr -d '"')
+          USERS=$(jq -r '.users | join(",")' .github/workflows/configurations/assignees.json)
           echo "users=$USERS" >> $GITHUB_OUTPUT
 
       - name: Assign issue to next user
+        if: github.event.label.name == 'assign'
         uses: actions/github-script@v7
         id: assign
         with:
@@ -50,6 +50,7 @@ jobs:
             core.setOutput('assigned', selected);
 
       - name: Remove 'assign' label
+        if: github.event.label.name == 'assign'
         uses: actions/github-script@v7
         with:
           script: |
