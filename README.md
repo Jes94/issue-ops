@@ -11,7 +11,6 @@ This repository contains a suite of GitHub Actions workflows designed to automat
 - [Auto Close Stale Issues](#auto-close-stale-issues)
 - [Auto Comment Assignee Reminder](#auto-comment-assignee-reminder)
 - [Issue Metrics Report](#issue-metrics-report)
-- [Find Repository Administrators](#find-repository-administrators)
 
 ---
 
@@ -80,20 +79,6 @@ This repository contains a suite of GitHub Actions workflows designed to automat
 - **How it works:**
   1. Calculates open/closed issues, closure percentage, average closure time, and per-assignee metrics.
   2. Posts the report as a comment in a dedicated issue (`📊 Weekly Issue Metrics Report`).
-
----
-
-## Find Repository Administrators
-**Workflow:** `.github/workflows/find-repo-admins.yml`
-
-- **Purpose:** Lists all users with admin permissions in the repository using a GitHub App for authentication.
-- **How to use:**
-  1. Set the following repository secrets with your GitHub App credentials:
-     - `GITHUB_APP_ID`
-     - `GITHUB_APP_INSTALLATION_ID`
-     - `GITHUB_APP_PRIVATE_KEY`
-  2. Trigger the workflow manually via the Actions tab.
-  3. The workflow will output the list of admins in the workflow logs.
 
 ---
 
