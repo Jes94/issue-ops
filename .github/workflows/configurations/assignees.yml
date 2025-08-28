@@ -1,6 +1,4 @@
 # List of users to assign issues to, in round-robin order
 users:
-  - user1
-  - user2
-  - user3
+  - jes94
   # Add more GitHub usernames as needed
