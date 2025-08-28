@@ -31,3 +31,6 @@ body:
 			placeholder: e.g. Related issues, screenshots, or links
 		validations:
 			required: false
+			placeholder: e.g. Related issues, screenshots, or links
+		validations:
+			required: false
