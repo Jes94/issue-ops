@@ -9,6 +9,7 @@ on:
 
 jobs:
   auto-assign:
+    if: github.event.label.name == 'assign'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,7 +22,6 @@ jobs:
           echo "users=$USERS" >> $GITHUB_OUTPUT
 
       - name: Assign issue to next user
-        if: github.event.label.name == 'assign'
         uses: actions/github-script@v7
         id: assign
         with:
@@ -50,7 +50,6 @@ jobs:
             core.setOutput('assigned', selected);
 
       - name: Remove 'assign' label
-        if: github.event.label.name == 'assign'
         uses: actions/github-script@v7
         with:
           script: |
