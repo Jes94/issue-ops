@@ -20,7 +20,7 @@ This repository contains a suite of GitHub Actions workflows designed to automat
 
 - **Purpose:** Automatically responds to issues labeled `new_issue`, removes the label, and adds `assign`.
 - **Configuration:**
-  - Edit `.github/issue_templates/autoresponse_template.md` to customize the auto-response message.
+  - Edit `.github/workflows/configurations/autoresponse_template.md` to customize the auto-response message.
 - **How it works:**
   1. Listens for the `new_issue` label on issues.
   2. Posts a comment using the template.
@@ -33,7 +33,7 @@ This repository contains a suite of GitHub Actions workflows designed to automat
 
 - **Purpose:** Assigns issues labeled `assign` to a user from a predefined list, avoiding recent assignees.
 - **Configuration:**
-  - Edit `.github/issue_templates/assignees.yml` to specify the list of GitHub usernames.
+  - Edit `.github/workflows/configurations/assignees.yml` to specify the list of GitHub usernames.
 - **How it works:**
   1. Listens for the `assign` label on issues.
   2. Selects the next user in a round-robin fashion, skipping recent assignees.
@@ -99,5 +99,5 @@ This repository contains a suite of GitHub Actions workflows designed to automat
 
 ## Customization & Maintenance
 - Adjust schedules, labels, and user lists as needed in the workflow YAML files.
-- Update templates and user lists in `.github/issue_templates/`.
+- Update templates and user lists in `.github/workflows/configurations/`.
 - For advanced logic, edit the JavaScript in the `github-script` steps.
