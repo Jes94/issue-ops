@@ -1,4 +1,7 @@
+
 name: Auto Assign Issues
+permissions:
+  issues: write
 
 on:
   issues:

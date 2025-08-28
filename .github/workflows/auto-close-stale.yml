@@ -1,4 +1,7 @@
+
 name: Auto Close Stale Issues
+permissions:
+  issues: write
 
 on:
   schedule:

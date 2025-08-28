@@ -1,4 +1,7 @@
+
 name: 48hr Assignee Reminder
+permissions:
+  issues: write
 
 on:
   schedule:

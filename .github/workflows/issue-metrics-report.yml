@@ -1,4 +1,7 @@
+
 name: Generate Issue Metrics Report
+permissions:
+  issues: write
 
 on:
   schedule:

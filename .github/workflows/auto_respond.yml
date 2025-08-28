@@ -1,4 +1,7 @@
+
 name: Issue Ops Auto Response
+permissions:
+  issues: write
 
 on:
   issues:
