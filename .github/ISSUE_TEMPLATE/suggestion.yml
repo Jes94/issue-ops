@@ -1,7 +1,7 @@
 name: Suggestion
 description: Make a suggestion
 title: "[Suggestion]: "
-labels: ["new_issue"]
+labels: ["new_issue","assign"]
 body:
   - type: markdown
     attributes:
